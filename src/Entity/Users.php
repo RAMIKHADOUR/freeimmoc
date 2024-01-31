@@ -63,6 +63,13 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private array $roles = [];
 
     /**
+     * Variable $plainpassword pour confirmer mot de passe!
+     *
+     * @var string
+     */
+ private ?string $plainPassword = null;
+
+    /**
      * @var string The hashed password
      */
     #[ORM\Column]
@@ -76,6 +83,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Annonces::class)]
     private Collection $annonces;
+
+    #[ORM\Column(type: 'boolean')]
+    private $isVerified = false;
 
     public function __construct() {
        $this->createdAt = new DateTimeImmutable();
@@ -227,6 +237,19 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+
+     public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
     /**
      * @see UserInterface
      */
@@ -264,6 +287,18 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
             $this->annonces->add($annonce);
             $annonce->setUser($this);
         }
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }
