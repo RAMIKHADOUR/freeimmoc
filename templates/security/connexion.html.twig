@@ -33,9 +33,9 @@
                     </div>
                     <div>
                        
-                        <a class="text-decoration-none m-4 text-warning fs-5 fw-bolder" href="">Consulter</a>
-                        <a class="text-decoration-none m-4 text-warning fs-5 fw-bolder" href="">S'Inscrire</a>
-                        <a class="btn btn-warning text-decoration-none fs-6 fw-bolder text-primary" href="" role="button"><strong>+</strong>Deposer Une Annonce</a>
+                        <a class="text-decoration-none m-4 text-warning fs-5 fw-bolder" href="{{ path('app_search')}}">Consulter</a>
+                        <a class="text-decoration-none m-4 text-warning fs-5 fw-bolder" href="{{ path('app_inscription')}}">S'Inscrire</a>
+                        <a class="btn btn-warning text-decoration-none fs-6 fw-bolder text-primary" href="{{ path('app_inscription')}}" role="button"><strong>+</strong>Deposer Une Annonce</a>
                     </div>
                 </div>
             </div>
@@ -71,7 +71,7 @@
                                <div class="checkbox mb-2">
                                         <label>
                                             <input type="checkbox" name="_remember_me" checked>
-                                            Remember me <a class="text-decoration-none text-danger m-5" href="">Mot de Passe Oublié</a>
+                                            Remember me <a class="text-decoration-none text-danger m-5" href="{{path('app_forgot_password_request')}}">Mot de Passe Oublié</a>
                                         </label>
                                     </div>
 
