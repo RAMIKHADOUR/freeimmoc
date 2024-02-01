@@ -21,25 +21,47 @@ class RegistrationFormType extends AbstractType
     {
         $builder
         ->add('nom', TextType::class,[
-            'attr'=>['class'=>'form-control','minlength'=>'2','maxlength'=>'50','placeholder'=>'Nom'],
+            'attr'=>['class'=>'form-control','minlength'=>'2','maxlength'=>'50'],
          
          
             'constraints'=>[new NotBlank(),new Assert\Length(['min'=>2,'max'=> 50])]])
 
         ->add('prenom',TextType::class,[
-            'attr'=>['class'=>'form-control','minlength'=>'2','maxlength'=>'50','placeholder'=>'prenom'],
+            'attr'=>['class'=>'form-control','minlength'=>'2','maxlength'=>'50'],
          
             'label_attr'=>['class'=>'form-label'],
             'constraints'=>[new Assert\NotBlank(),new Assert\Length(['min'=>2, 'max'=>50])]])
 
         ->add('mobile',TextType::class,[
-            'attr'=>['class'=>'form-control','placeholder'=>'Tél-Portable'],
+            'attr'=>['class'=>'form-control'],
        
             'label_attr'=>['class'=>'form-label'],
             'constraints'=>[new Assert\NotBlank()]])
         ->add('tele_fixe',TextType::class,[
-            'attr'=>['class'=>'form-control','minlength'=>'2','maxlength'=>'10','placeholder'=>'Tél-Fixe'],
+            'attr'=>['class'=>'form-control','minlength'=>'2','maxlength'=>'10'],
    
+            'label_attr'=>['class'=>'form-label'],
+            'constraints'=>[new Assert\NotBlank()]])
+
+             ->add('tele_fixe',TextType::class,[
+            'attr'=>['class'=>'form-control','minlength'=>'2','maxlength'=>'10'],
+            'label'=>'Télé-Fixe',
+            'label_attr'=>['class'=>'form-label'],
+            'constraints'=>[new Assert\NotBlank()]])
+        ->add('adresse',TextType::class,[
+            'attr'=>['class'=>'form-control','minlength' =>'2','maxlength'=>'100'],
+            'label'=>'Adresse',
+            'label_attr'=>['class'=>'form-label'],
+            'constraints'=>[new NotBlank(),new Assert\Length(['min'=>2,'max'=>100])]])
+
+        ->add('ville',TextType::class,[
+            'attr'=>['class'=>'form-control','minlength'=>'2','maxlength'=>'50'],
+            'label'=>'Ville',
+            'label_attr'=>['class'=>'form-label'],
+            'constraints'=>[new NotBlank(),new Assert\Length(['min'=>2,'max'=>50])]])
+        ->add('codepostale',TextType::class,[
+            'attr'=>['class'=>'form-control'],
+            'label'=>'Code-Postale',
             'label_attr'=>['class'=>'form-label'],
             'constraints'=>[new Assert\NotBlank()]])
 
@@ -55,7 +77,7 @@ class RegistrationFormType extends AbstractType
         ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options'  => ['label' => 'Mot de passe'],
-                'second_options' => ['label' => 'Répéter le mot de passe'],
+                'second_options' => ['label' => 'Confirmer le mot de passe'],
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
