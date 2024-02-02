@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\LocalisationsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: LocalisationsRepository::class)]
@@ -30,6 +32,14 @@ class Localisations
 
     #[ORM\Column(length: 100)]
     private ?string $region = null;
+
+    #[ORM\OneToMany(mappedBy: 'localisation', targetEntity: Propertys::class)]
+    private Collection $propertys;
+
+    public function __construct()
+    {
+        $this->propertys = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -104,6 +114,36 @@ class Localisations
     public function setRegion(string $region): static
     {
         $this->region = $region;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Propertys>
+     */
+    public function getPropertys(): Collection
+    {
+        return $this->propertys;
+    }
+
+    public function addProperty(Propertys $property): static
+    {
+        if (!$this->propertys->contains($property)) {
+            $this->propertys->add($property);
+            $property->setLocalisation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProperty(Propertys $property): static
+    {
+        if ($this->propertys->removeElement($property)) {
+            // set the owning side to null (unless already changed)
+            if ($property->getLocalisation() === $this) {
+                $property->setLocalisation(null);
+            }
+        }
 
         return $this;
     }

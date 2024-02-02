@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Localisations{% endblock %}
+
+{% block body %}
+    <h1>Create new Localisations</h1>
+
+    {{ include('localisations/_form.html.twig') }}
+
+    <a href="{{ path('app_localisations_index') }}">back to list</a>
+{% endblock %}

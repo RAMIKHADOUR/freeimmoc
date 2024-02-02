@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PropertysRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -43,6 +45,30 @@ class Propertys
 
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Annonces $annonce = null;
+
+    #[ORM\ManyToOne(inversedBy: 'propertys')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Categorys $category = null;
+
+    
+
+    #[ORM\ManyToMany(targetEntity: Installations::class)]
+    private Collection $installation;
+
+    #[ORM\ManyToOne(inversedBy: 'propertys')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Localisations $localisation = null;
+
+    public function __construct()
+    {
+        $this->installation = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
+          $this->updatedAt = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
@@ -165,6 +191,78 @@ class Propertys
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getAnnonce(): ?Annonces
+    {
+        return $this->annonce;
+    }
+
+    public function setAnnonce(Annonces $annonce): static
+    {
+        $this->annonce = $annonce;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Categorys
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Categorys $category): static
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    public function getType(): ?Types
+    {
+        return $this->type;
+    }
+
+    public function setType(?Types $type): static
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Installations>
+     */
+    public function getInstallation(): Collection
+    {
+        return $this->installation;
+    }
+
+    public function addInstallation(Installations $installation): static
+    {
+        if (!$this->installation->contains($installation)) {
+            $this->installation->add($installation);
+        }
+
+        return $this;
+    }
+
+    public function removeInstallation(Installations $installation): static
+    {
+        $this->installation->removeElement($installation);
+
+        return $this;
+    }
+
+    public function getLocalisation(): ?Localisations
+    {
+        return $this->localisation;
+    }
+
+    public function setLocalisation(?Localisations $localisation): static
+    {
+        $this->localisation = $localisation;
 
         return $this;
     }

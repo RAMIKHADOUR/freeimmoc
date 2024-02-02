@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Propertys{% endblock %}
+
+{% block body %}
+    <h1>Propertys</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ property.id }}</td>
+            </tr>
+            <tr>
+                <th>Surface</th>
+                <td>{{ property.surface }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ property.description }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ property.prix }}</td>
+            </tr>
+            <tr>
+                <th>Chambres</th>
+                <td>{{ property.chambres }}</td>
+            </tr>
+            <tr>
+                <th>Salle_bains</th>
+                <td>{{ property.salleBains }}</td>
+            </tr>
+            <tr>
+                <th>Etages</th>
+                <td>{{ property.etages }}</td>
+            </tr>
+            <tr>
+                <th>N_etage</th>
+                <td>{{ property.nEtage }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ property.image }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ property.createdAt ? property.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ property.updatedAt ? property.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_propertys_index') }}">back to list</a>
+
+    <a href="{{ path('app_propertys_edit', {'id': property.id}) }}">edit</a>
+
+    {{ include('propertys/_delete_form.html.twig') }}
+{% endblock %}
